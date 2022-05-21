@@ -1,0 +1,474 @@
+Git commands
+
+1. update packeges
+yum update -y
+
+2. install git
+yum install git -y
+
+3. check path where git is installed
+which git
+
+o/p : /root/bin/git
+
+4. set username and email
+git config --global user.name "pavan"
+git config --global user.email "pavanmali.5679@gmail.com"
+
+5.check username and email or another details which we provided
+ 
+git config --list
+
+o/p : pavan pavanmali.5679@gmail.com
+
+----------------------
+Github tocken used as password while needs to connect
+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
+
+----------------------------
+Todays Task
+  As we have 2 servers or machines one is in Mumbai and another is in Singapore
+
+Step A :
+1. Open Mumbai Server by Putty
+2. Make directory 
+   mkdir MumbaiGitDirectory
+
+3. cd MumbaigGitDirectory (come in directory)
+
+4. git Iinit (git initialization)
+
+5. create file
+cat > Mumbai
+Hello this is first file (content)
+
+ctrl + d (save escape)
+
+6. git status   (all details...as created new file...red color means its not commit this is untrack file)
+
+7. so move that file to staging area
+  git add .
+
+
+8. git status (greeen..this is tracked and moved to staging area)
+
+9. git commmit -m "My first commit from mumbai"  (to commit file)
+
+10.git status (working tree clean : means there is nothing in working directory and in staging area ...all moved to local repo)
+
+11. git log (to check what is commited : 40 gigit comit id and all details)
+
+12. to check what is commited
+    git show 565767 (4 5 first letter of comit id)
+
+It shows content of commited and by whom and when
+
+
+Step B :
+
+Now move that mumbai server data or commited code to Github (central repository)
+
+1. Login to GitHub
+2. create Repository (select public for free)
+3. get Url copy and past in file for future reference
+
+4. connect mumbai server to GitHub server 
+
+   git remote add origin past url
+
+5. move mumbai data to GitHub
+   git push -u origin master
+
+UserName : GitHub Username
+Password : Her is imp thing
+ For Password create a tocken and paste that in Password feild
+
+6. How to create a tocken 
+
+>> Settings > Devloper setting > Create Tocken > select all options > Create 
+   It will create some encrypted key : copy that to notepad for future reference
+
+Paste that to Password field in step 5.
+
+
+Step c :
+
+In this step we have to pull data to Singapore Server from GitHub which is commited by Mumbai server
+
+Follow the following steps
+
+1. Use same 4 steps in Step A (Here we have to connect Singapore Server so keep that mind)
+
+2. Then Refer Step 4,5 from Step B
+   This is for to connect Singapore server to GitHub
+
+3. Now we have to pull code from GitHub
+   git pull -u origin master
+
+Username : GitHub Username 
+password : GitHub Tocken : as explained above
+
+4. git log
+
+5. Again If we have to add some new code to singapore server and move to GitHub
+   which can accessed by Mumbai server then we have to follow same steps as per above
+
+Finaly both machines are syncronized with GitHub Server
+
+----------------------------------------------------------------
+
+Git Ignore :
+if we want to ignore some file to comit
+
+1. create hidden file .gitignore
+
+vi .gitignore (create ignorable file from vi editor and then pass files extention which you want to ignore
+.css
+.html
+
+2.create multiple files from touch editor some are .txt some are .css .html
+after when we add git or git commit it will only commit non .css and non .html files
+
+touch file1.txt file2.txt file3.css file4.html
+
+3. git add .gitignore
+
+in o/p it only add file1.txt file2.txt
+
+git commit -m "commited files"
+
+in o/p it only commit file1.txt file2.txt
+
+
+-------------------------------------
+Git Log
+git log -1 
+last log details
+
+git log -2
+
+last 2 logs detail
+
+git log --oneline
+
+all logs details in one by one line
+like follows
+
+-----
+-----
+-----
+-----
+
+etc.
+----------------------------------
+Git Log Grip
+git log grip "comit"
+
+it gives logs details which contain comit keyword this is nothing like filter
+
+-----------------------------------
+
+Git Branch
+1. check branch
+git branch
+o/p
+*master  (means you have one branch and * means you are currently in which branch)
+
+2. Create branch
+
+git branch branch1
+
+o/p
+*master
+branch1
+
+3. come to another branch
+
+git checkout branch1
+
+git branch
+o/p
+master
+*branch1
+
+3.Delete branch
+
+git branch -d branch1 ----(this is small d)
+
+----
+
+When we create a new branch then whatever be the data or code exist in old branch or current branch it get coppied to new branch
+
+e.g. there is file1 in master branch and when we create branch1 as new branch file1 get added into branch1
+
+
+                          *Master (file1)
+                   --------------------------------------------------------
+                  |                                                       |
+                  |                                                       |
+                 Branch1 (fil1, and created fil2)                        Branch2 (file1)
+                  |
+                  |
+                 Branch3(file1, file2)
+
+This is for understanding purpose
+
+--------------
+When we create a file in new branch and if we add to staging area or commit that file it may not visible in parent branch
+but if we have not commited or added that then it will visible in master or parent branch as well
+
+---------------------------------------
+
+e.g.
+
+1. git branch
+*master
+
+2. ls (check all files in master branch)
+o/p : file1
+
+2. create branch
+git branch branch1
+
+ls (check if master branch files coppied to branch1)
+
+o/p : file1
+
+3. create file in branch1
+
+cat > file2
+
+ls
+o/p
+
+file1
+file2
+
+4. now come again to master branch
+git checkout master
+
+ls
+o/p
+file1
+file2
+
+why file2 is visible in master as it is created in branch1, because it is not yet added to staging area and not commited
+
+5. Again come inside branch1
+
+git add .
+git comit -m "this is file2 from branch2"
+
+6. now come again master and check if its showing same or not as in step 4
+
+git checkout master
+
+ls
+file1
+
+Now its not showing in master because it is commited.
+-------------------
+Git Merge
+
+when we want to pull data from one branch to another then this is used. But by default when we craete a branch from existing branch 
+it is get auto merge which we seen earlier
+
+But when we want to pull data from branch1 to master then this is used
+
+1. come in master branch first
+git checkout master
+
+2. now pull data from branch1
+git merge branch1
+
+ls
+o/p
+file1 ---(from master)
+file2 ---(from branch1)
+
+------------------------------------
+Git Conflict
+
+When we merge 2 branches and in that both having common files but different content that time there can be a situation of git conflict
+Its a simple way to avoide conflict
+when after we merge branches it gives us conflict warning message : this is why, git get confuse which content should place upper and which in down
+
+so what we have to do just after merging branches we just have to open that file where new merge is done, and edit the content of data of that file, then 
+conflict issue will resolved
+
+e.g. 
+
+branch1 having file file1 with data "hello pavan"
+and master branch having data "hey mali"
+
+when we merge branch1 to master then after it gives conflict warning
+then after merging we have to open the file1 in master and edit the content in vi editor, we can simply add . or make any changes that resolve the issue
+Note that where we make a changes that can be consider as first code or data then the next
+
+i.e. 
+file1 :
+o/p : 
+hello pavan
+hey mali
+
+then what we do, we need hey mali should be first content and then hello pavan
+
+then we just add . at end, so the conflict issue will resolved
+
+------------------------------------------------
+Git Stashing 
+
+Git stashing is temprory storage provided by git. this is used when we are working on task, and at same time we came another imp task to be perform
+so we dont want to avoid or delete current task, so what we do, we just move current task data to stashing area so that working directory get clean and
+we can perform new task, once it done again we can pull our current task data from stashing area to workspace
+we csn store multiple files in stash
+
+1. when we want to move data to stash
+git stash
+
+so then whatever be data in workspace get moved to stash area
+
+If we want to check how many and which files are there in stash so we use following commands
+
+git stash lish 
+
+o/p : file1 {0}
+      file2 {1}
+      file3 {2}
+
+Here it provide indexing or numbering 0 means latest file and last no means oldesh file. here file1 is latest and file2 is oldest one
+
+when we want to pull files from stash we used folllowing command
+git stash apply stash@{0}
+
+so that file1 moved from stash to workspace back
+when we move data from stash to workspace it remains available in stash as well
+
+when we want to clear stash area, we used following command
+git stash clear
+
+--------------------------------------------------------
+
+Git Reset
+
+When we add code from workspace to staging area, but if we again move to workspace to make any changes in workspace in that file so we used git reset
+
+git reset file1
+git reset .
+
+so file1 moved from staging area to workspace
+
+when we want to remove file from workspace as well from staging area we used following command
+
+git reset --hard
+
+----------------------------------------------------------
+Git Revert
+
+As above we seen git reset which is used to move data from staging area to worksapce
+
+Git revert is used while we need to do undo changes in Local repo area which is commited area
+so its not possible to move that data to early staging area or workspace, but we have the option to undo that changes
+
+How it works,
+Suppose we created one file and some code in that and commited : that is first commit
+and again we open that file again make some changes or any new commit operations is performed, that is second commit
+
+But then after we observe that its wrong or we need previous or first commit to be set and sent to central repo
+
+so by using git revert this is possible
+
+check following diagram for understanding
+
+   *Master (branch)
+      |
+    create file1
+      |
+    commit file1 (after staging)  (Comit -1)
+     |
+   create file2 (here we can consider create new file or make changes in file1, that simillar
+     |
+   commit file2   (comit -2)
+     |
+   here we need to revert or undo changes of file2
+     |
+   git revert command
+     |
+   file1 (after git revert it create new comit which is old data or file) (commit -3)
+
+
+ or understand by following lines
+
+     A------B-------C---(Now C commit is wrong)---> Git revert----B----
+    c-1    c-2     c-3                                           c-4
+
+it revert C commit to B but it create again new commit ID, as Git is distribution Version control system,
+so it create new version which contain same data as C-2, C4=C2
+
+
+Note That : Git reset is private and Git reset is public, because Git reset perform localy in staging area 
+            And Git revert is perform in local repository which is connected to central repository so its public
+            Every commited data always store in central repository i.e. GitHub
+ 
+
+--------------------------------------------------
+How to delete untrack file, means which files just created in workspace but not commited, these are untrack files
+if we need to delete all that untrack file
+
+use following command
+git clean -n
+
+It ask if you want to delete or not
+then use following command
+
+git clean -f
+
+-----------------------------------------------------
+
+Git Tags
+Every commited file contains 40 digit alphanumaric key, so we can give Tag to them to understand that
+we can give any Tag its understable comments
+
+To apply Tag
+
+git tag -a TagName(which want to give) -m message(what message we want to give) commitid(first 4,5 digits from commit Id)
+
+To see all tags list
+git tag
+
+To see perticular commit content by tag
+git show TagName(which we given)
+
+To delete a Tag
+git tag -d TagName
+
+---------------------------------------------------------
+
+GitHub clone
+
+This is simillar as we adding github to git as we used add command (complete command is mentioned above)
+
+By using add, all data from central repo coppied to local repo
+
+In add operation, we must have at least one local repo branch
+
+But in Clone,
+
+if the repo name is CetralRepo in gitHub, it create same repo with same name in local repository
+This is difference between add and clone
+
+command
+
+git clone <GitHub repo Url>
+
+
+------------
+
+In GitHub we can craete branch as like we create in git as well
+what ever possible in git that is also possible in GitHub
+git is CLI based, GitHub is GUI based
+
+
+------------------------------------------------------------------
+****FINISH****
+------------------------------------------------------------------
